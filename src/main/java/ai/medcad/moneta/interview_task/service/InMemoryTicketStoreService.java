@@ -43,7 +43,7 @@ public class InMemoryTicketStoreService implements TicketStoreService{
     public int removeFirstInQueueTicket() {
         tickets.pollFirst();
         reindexQueueOrder();
-        log.info("Returning size of queue : {} items", tickets.size());
+        log.info("New size of queue is : {} items", tickets.size());
         return tickets.size();
     }
 
@@ -52,7 +52,7 @@ public class InMemoryTicketStoreService implements TicketStoreService{
         tickets.stream().forEach(ticket-> ticket.setOrder(ticket.getOrder()-1));
     }
 
-    //TODO
+    //TODO Decide to call interface method addTicket or directly adding to set.
     @Override
     @Synchronized
     public TicketDTO createTicket() {
