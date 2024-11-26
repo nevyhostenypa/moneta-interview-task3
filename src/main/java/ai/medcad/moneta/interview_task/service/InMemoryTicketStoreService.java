@@ -1,6 +1,5 @@
 package ai.medcad.moneta.interview_task.service;
 
-import ai.medcad.moneta.interview_task.controller.TicketController;
 import ai.medcad.moneta.interview_task.model.TicketDTO;
 import lombok.Synchronized;
 import org.springframework.stereotype.Service;
@@ -26,8 +25,15 @@ public class InMemoryTicketStoreService implements TicketStoreService{
     }
 
     @Override
-    public void removeFirstInQueueTicket() {
+    @Synchronized
+    public int removeFirstInQueueTicket() {
+        tickets.pollFirst();
+        reindexQueueOrder();
+        return tickets.size();
+    }
 
+    private void reindexQueueOrder() {
+        tickets.stream().forEach(ticket-> ticket.setQueueOrder(ticket.getQueueOrder()-1));
     }
 
     //TODO
