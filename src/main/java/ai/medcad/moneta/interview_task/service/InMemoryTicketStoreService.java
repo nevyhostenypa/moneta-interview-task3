@@ -2,6 +2,8 @@ package ai.medcad.moneta.interview_task.service;
 
 import ai.medcad.moneta.interview_task.model.TicketDTO;
 import lombok.Synchronized;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
@@ -9,31 +11,44 @@ import java.time.LocalDateTime;
 import java.util.TreeSet;
 
 @Service
+@Slf4j
 public class InMemoryTicketStoreService implements TicketStoreService{
 
-    private SequenceGenerator sequenceGenerator = new SequenceGenerator(1450L);
+    private static final Long START_SEQUENCE_FROM = 1450L;
+
+    private SequenceGenerator sequenceGenerator = new SequenceGenerator(START_SEQUENCE_FROM);
 
     private TreeSet<TicketDTO> tickets = new TreeSet<>();
 
     @Override
     public void addNewTicket(TicketDTO ticket) {
+        log.info("Adding ticket object method");
         tickets.add(ticket);
     }
 
     @Override
     public TicketDTO getFirstTicketInQueue() {
-        return tickets.getFirst();
+        if(tickets.size() > 0) {
+            return tickets.getFirst();
+        }
+        else {
+            log.error("Ticket queue is empty could no retrieve !!");
+            throw new RuntimeException("Queue is empty !!!");
+        }
     }
+
 
     @Override
     @Synchronized
     public int removeFirstInQueueTicket() {
         tickets.pollFirst();
         reindexQueueOrder();
+        log.info("Returning size of queue : {} items", tickets.size());
         return tickets.size();
     }
 
     private void reindexQueueOrder() {
+        log.info("Reindexing queue order");
         tickets.stream().forEach(ticket-> ticket.setOrder(ticket.getOrder()-1));
     }
 
@@ -48,11 +63,13 @@ public class InMemoryTicketStoreService implements TicketStoreService{
                 .order(queueOrder).creationDateTime(LocalDateTime.now()).build();
 
         tickets.add(newTicket);
+        log.info("Ticket : {} added to queue", newTicket);
 
         return newTicket;
     }
 
     public void emptyStore() {
+        log.warn("Deleting all items in queue");
         tickets.clear();
     }
 
