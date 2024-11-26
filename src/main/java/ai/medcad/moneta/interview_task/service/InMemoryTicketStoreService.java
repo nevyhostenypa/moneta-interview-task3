@@ -2,6 +2,7 @@ package ai.medcad.moneta.interview_task.service;
 
 import ai.medcad.moneta.interview_task.model.TicketDTO;
 import lombok.Synchronized;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -33,7 +34,7 @@ public class InMemoryTicketStoreService implements TicketStoreService{
     }
 
     private void reindexQueueOrder() {
-        tickets.stream().forEach(ticket-> ticket.setQueueOrder(ticket.getQueueOrder()-1));
+        tickets.stream().forEach(ticket-> ticket.setOrder(ticket.getOrder()-1));
     }
 
     //TODO
@@ -44,7 +45,7 @@ public class InMemoryTicketStoreService implements TicketStoreService{
         Long sequenceNumber = sequenceGenerator.get();
 
         TicketDTO newTicket = TicketDTO.builder().sequenceNumber(sequenceNumber)
-                .queueOrder(queueOrder).dateTime(LocalDateTime.now()).build();
+                .order(queueOrder).creationDateTime(LocalDateTime.now()).build();
 
         tickets.add(newTicket);
 

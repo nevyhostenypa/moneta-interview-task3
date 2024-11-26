@@ -14,15 +14,15 @@ import java.time.LocalDateTime;
 public class TicketDTO implements Comparable<TicketDTO>{
 
     private Long sequenceNumber;
-    private LocalDateTime dateTime;
-    private int queueOrder;
+    private LocalDateTime creationDateTime;
+    private int order;
 
     @Override
     public int compareTo(TicketDTO o) {
-        if(this.queueOrder > o.queueOrder) {
+        if(this.order > o.order) {
             return 1;
         }
-        else if(this.queueOrder < o.queueOrder) {
+        else if(this.order < o.order) {
             return -1;
         }
         return 0;

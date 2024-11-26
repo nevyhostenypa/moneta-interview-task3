@@ -16,8 +16,8 @@ public class InMemoryTicketStoreServiceTest {
     @Autowired
     private TicketStoreService ticketService;
 
-    private TicketDTO firstTicket = TicketDTO.builder().queueOrder(0).sequenceNumber(140L).dateTime(LocalDateTime.now()).build();
-    private TicketDTO secondTicket = TicketDTO.builder().queueOrder(1).sequenceNumber(143L).dateTime(LocalDateTime.now()).build();
+    private TicketDTO firstTicket = TicketDTO.builder().order(0).sequenceNumber(140L).creationDateTime(LocalDateTime.now()).build();
+    private TicketDTO secondTicket = TicketDTO.builder().order(1).sequenceNumber(143L).creationDateTime(LocalDateTime.now()).build();
 
     @BeforeEach
     public void setup() {
@@ -46,9 +46,9 @@ public class InMemoryTicketStoreServiceTest {
         TicketDTO new2 = ticketService.createTicket();
         TicketDTO new3 = ticketService.createTicket();
 
-        assertEquals(0, new1.getQueueOrder());
-        assertEquals(1, new2.getQueueOrder());
-        assertEquals(2, new3.getQueueOrder());
+        assertEquals(0, new1.getOrder());
+        assertEquals(1, new2.getOrder());
+        assertEquals(2, new3.getOrder());
 
         System.out.println(new1);
         System.out.println(new2);
@@ -66,9 +66,9 @@ public class InMemoryTicketStoreServiceTest {
         int newSize = ticketService.removeFirstInQueueTicket();
 
         assertEquals(3, newSize);
-        assertEquals(0, new2.getQueueOrder());
-        assertEquals(1, new3.getQueueOrder());
-        assertEquals(2, new4.getQueueOrder());
+        assertEquals(0, new2.getOrder());
+        assertEquals(1, new3.getOrder());
+        assertEquals(2, new4.getOrder());
 
 
         TicketDTO first = ticketService.getFirstTicketInQueue();
