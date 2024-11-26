@@ -33,4 +33,8 @@ public class TicketController {
         ticketStoreService.removeFirstTicket();
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
+
+    //TODO Exception handling
+    //TODO DateField formatting
+    //TODO Documentation of API
 }
