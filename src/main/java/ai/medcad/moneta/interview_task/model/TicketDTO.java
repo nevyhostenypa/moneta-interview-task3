@@ -11,9 +11,20 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class TicketDTO {
+public class TicketDTO implements Comparable<TicketDTO>{
 
     private Long sequenceNumber;
     private LocalDateTime dateTime;
     private Integer queueOrder;
+
+    @Override
+    public int compareTo(TicketDTO o) {
+        if(this.queueOrder > o.queueOrder) {
+            return 1;
+        }
+        else if(this.queueOrder < o.queueOrder) {
+            return -1;
+        }
+        return 0;
+    }
 }
