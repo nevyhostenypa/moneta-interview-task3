@@ -8,5 +8,5 @@ public interface TicketStoreService {
     public TicketDTO getFirstTicketInQueue();
     public void removeFirstInQueueTicket();
     public TicketDTO createTicket();
-
+    public void emptyStore();
 }

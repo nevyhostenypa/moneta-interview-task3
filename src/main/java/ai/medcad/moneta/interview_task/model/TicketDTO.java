@@ -15,7 +15,7 @@ public class TicketDTO implements Comparable<TicketDTO>{
 
     private Long sequenceNumber;
     private LocalDateTime dateTime;
-    private Integer queueOrder;
+    private int queueOrder;
 
     @Override
     public int compareTo(TicketDTO o) {
