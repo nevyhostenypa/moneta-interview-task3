@@ -29,12 +29,12 @@ public class InMemoryTicketStoreServiceTest {
         ticketService.addNewTicket(firstTicket);
         ticketService.addNewTicket(secondTicket);
 
-        TicketDTO testTicket = ticketService.getFirstTicketInQueue();
+        TicketDTO testTicket = ticketService.getActualTicket();
         assertEquals(firstTicket, testTicket);
 
         //Some methods calls
         TicketDTO newTicket = ticketService.createTicket();
-        TicketDTO testTicket2 = ticketService.getFirstTicketInQueue();
+        TicketDTO testTicket2 = ticketService.getActualTicket();
 
         assertEquals(firstTicket, testTicket2);
 
@@ -63,7 +63,7 @@ public class InMemoryTicketStoreServiceTest {
         TicketDTO new3 = ticketService.createTicket();
         TicketDTO new4 = ticketService.createTicket();
 
-        int newSize = ticketService.removeFirstInQueueTicket();
+        int newSize = ticketService.removeFirstTicket();
 
         assertEquals(3, newSize);
         assertEquals(0, new2.getOrder());
@@ -71,7 +71,7 @@ public class InMemoryTicketStoreServiceTest {
         assertEquals(2, new4.getOrder());
 
 
-        TicketDTO first = ticketService.getFirstTicketInQueue();
+        TicketDTO first = ticketService.getActualTicket();
         assertEquals(new2, first);
     }
 
@@ -81,14 +81,14 @@ public class InMemoryTicketStoreServiceTest {
         TicketDTO new3 = ticketService.createTicket();
         TicketDTO new4 = ticketService.createTicket();
 
-        int newSize1 = ticketService.removeFirstInQueueTicket();
-        TicketDTO actualTicket = ticketService.getFirstTicketInQueue();
+        int newSize1 = ticketService.removeFirstTicket();
+        TicketDTO actualTicket = ticketService.getActualTicket();
         assertEquals(new2, actualTicket);
         assertEquals(3 ,newSize1);
 
-        int newSize2 = ticketService.removeFirstInQueueTicket();
-        int newSize3 = ticketService.removeFirstInQueueTicket();
-        int newSize4 = ticketService.removeFirstInQueueTicket();
+        int newSize2 = ticketService.removeFirstTicket();
+        int newSize3 = ticketService.removeFirstTicket();
+        int newSize4 = ticketService.removeFirstTicket();
 
 
         assertEquals(2 ,newSize2);

@@ -2,7 +2,6 @@ package ai.medcad.moneta.interview_task.controller;
 
 import ai.medcad.moneta.interview_task.model.TicketDTO;
 import ai.medcad.moneta.interview_task.service.TicketStoreService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +18,7 @@ public class TicketController {
 
     @GetMapping
     public ResponseEntity<TicketDTO> getFirstTicket() {
-        TicketDTO actualTicket = ticketStoreService.getFirstTicketInQueue();
+        TicketDTO actualTicket = ticketStoreService.getActualTicket();
         return new ResponseEntity<>(actualTicket, HttpStatus.OK);
     }
 
@@ -30,8 +29,8 @@ public class TicketController {
     }
 
     @DeleteMapping
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void removeFirstTicket() {
-        ticketStoreService.removeFirstInQueueTicket();
+    public ResponseEntity removeFirstTicket() {
+        ticketStoreService.removeFirstTicket();
+        return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 }

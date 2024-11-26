@@ -27,7 +27,7 @@ public class InMemoryTicketStoreService implements TicketStoreService{
     }
 
     @Override
-    public TicketDTO getFirstTicketInQueue() {
+    public TicketDTO getActualTicket() {
         if(tickets.size() > 0) {
             return tickets.getFirst();
         }
@@ -40,7 +40,7 @@ public class InMemoryTicketStoreService implements TicketStoreService{
 
     @Override
     @Synchronized
-    public int removeFirstInQueueTicket() {
+    public int removeFirstTicket() {
         tickets.pollFirst();
         reindexQueueOrder();
         log.info("New size of queue is : {} items", tickets.size());
