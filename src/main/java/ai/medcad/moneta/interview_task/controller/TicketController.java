@@ -37,11 +37,8 @@ public class TicketController {
 
     @ExceptionHandler
     public ResponseEntity emptyQueueHandler(QueueEmptyException e) {
-        String printableMesage = e.getMessage();
-        return new ResponseEntity(printableMesage, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
     }
 
-    //TODO Exception handling DONE
-    //TODO DateField formatting DONE
-    //TODO Documentation of API
+    //TODO Documentation of API via restdocs
 }
