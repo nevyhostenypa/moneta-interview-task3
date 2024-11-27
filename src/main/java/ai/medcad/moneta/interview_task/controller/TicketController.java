@@ -1,5 +1,6 @@
 package ai.medcad.moneta.interview_task.controller;
 
+import ai.medcad.moneta.interview_task.exception.QueueEmptyException;
 import ai.medcad.moneta.interview_task.model.TicketDTO;
 import ai.medcad.moneta.interview_task.service.TicketStoreService;
 import org.springframework.http.HttpStatus;
@@ -34,7 +35,13 @@ public class TicketController {
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
-    //TODO Exception handling
-    //TODO DateField formatting
+    @ExceptionHandler
+    public ResponseEntity emptyQueueHandler(QueueEmptyException e) {
+        String printableMesage = e.getMessage();
+        return new ResponseEntity(printableMesage, HttpStatus.BAD_REQUEST);
+    }
+
+    //TODO Exception handling DONE
+    //TODO DateField formatting DONE
     //TODO Documentation of API
 }

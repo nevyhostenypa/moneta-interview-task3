@@ -1,5 +1,6 @@
 package ai.medcad.moneta.interview_task.service;
 
+import ai.medcad.moneta.interview_task.exception.QueueEmptyException;
 import ai.medcad.moneta.interview_task.model.TicketDTO;
 import lombok.Synchronized;
 import lombok.extern.slf4j.Slf4j;
@@ -33,7 +34,7 @@ public class InMemoryTicketStoreService implements TicketStoreService{
         }
         else {
             log.error("Ticket queue is empty could no retrieve !!");
-            throw new RuntimeException("Queue is empty !!!");
+            throw new QueueEmptyException("Queue is empty !!!");
         }
     }
 
