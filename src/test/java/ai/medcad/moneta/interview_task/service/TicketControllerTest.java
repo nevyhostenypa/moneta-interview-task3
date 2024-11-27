@@ -45,7 +45,8 @@ public class TicketControllerTest {
         mockMvc.perform(get(TICKET_API_URL)).andExpect((status().isOk()))
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.sequenceNumber").isNumber())
-                .andExpect(jsonPath("$.order").value("0"));
+                .andExpect(jsonPath("$.order").value("0"))
+                .andExpect(jsonPath("$.creationDateTime").isNotEmpty());
     }
 
     @Test
