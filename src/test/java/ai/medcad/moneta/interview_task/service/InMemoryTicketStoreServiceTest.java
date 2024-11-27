@@ -25,7 +25,7 @@ public class InMemoryTicketStoreServiceTest {
     }
 
     @Test
-    public void testPollFirstTicket() {
+    public void testActualTicket() {
         ticketService.addNewTicket(firstTicket);
         ticketService.addNewTicket(secondTicket);
 
