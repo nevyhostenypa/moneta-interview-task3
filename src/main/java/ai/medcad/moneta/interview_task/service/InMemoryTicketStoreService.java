@@ -19,9 +19,11 @@ public class InMemoryTicketStoreService implements TicketStoreService{
 
     private SequenceGenerator sequenceGenerator = new SequenceGenerator(START_SEQUENCE_FROM);
 
+    //TODO Think about using PriorityQueue instead
     private TreeSet<TicketDTO> tickets = new TreeSet<>();
 
     @Override
+    //TODO Think about automatically fill order field in TicketDTO
     public void addNewTicket(TicketDTO ticket) {
         log.info("Adding ticket object method");
         tickets.add(ticket);
@@ -53,7 +55,7 @@ public class InMemoryTicketStoreService implements TicketStoreService{
         tickets.stream().forEach(ticket-> ticket.setOrder(ticket.getOrder()-1));
     }
 
-    //TODO Decide to call interface method addTicket or directly adding to set.
+    //TODO Decide to call interface method addNewTicket or directly adding to set.
     @Override
     @Synchronized
     public TicketDTO createTicket() {

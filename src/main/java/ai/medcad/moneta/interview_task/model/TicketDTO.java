@@ -15,6 +15,7 @@ public class TicketDTO implements Comparable<TicketDTO>{
 
     private Long sequenceNumber;
     private LocalDateTime creationDateTime;
+    //TODO Think about using boxed Integer
     private int order;
 
     @Override
